@@ -20,7 +20,6 @@ App({
   globalData: {
     userInfo: null,
     baseUrl: 'https://dna.wrteach.com/v11',
-    SALT: '8C7942B5B656456D9AFA',
     verifyTimer: '',
     voiceControl: ''
   }
