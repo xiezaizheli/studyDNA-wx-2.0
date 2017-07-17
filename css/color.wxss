@@ -1,0 +1,54 @@
+/*字体颜色*/
+
+.c-basic {
+  color: #1495f0 !important;
+}
+
+.c-warning {
+  color: #ffbf06 !important;
+}
+
+.c-info {
+  color: #5fb41b !important;
+}
+
+.c-333 {
+  color: #333 !important;
+}
+
+.c-666 {
+  color: #666 !important;
+}
+
+.c-888 {
+  color: #888 !important;
+}
+
+.c-fff {
+  color: #fff !important;
+}
+
+/*背景颜色系列*/
+
+.bg-basic {
+  background: #1495f0 !important;
+}
+
+.bg-warning {
+  background: #ffbf06 !important;
+}
+
+.bg-info {
+  background: #5fb41b !important;
+}
+
+.bg-888 {
+  background: #888 !important;
+}
+
+.bg-no {
+  background: transparent !important;
+}
+
+/*边框颜色系列*/
+

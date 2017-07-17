@@ -1,0 +1,45 @@
+<view class="container">
+  <!--logo-->
+  <image class="logo-img" mode="widthFix" src="/images/logo-notxt.png"></image>
+  <view class="main">
+
+    <!--用户类型-->
+    <view class="sec choose-no">
+      <text class="sec-left">选择角色</text>
+      <radio-group class="sec-right" bindchange="radioTypeChange">
+        <label class="radio" wx:for="{{radioItems}}" wx:key="{{index}}">
+          <radio value="{{item.name}}" checked="{{item.checked}}" color="#1495F0" /> {{item.value}}
+        </label>
+      </radio-group>
+    </view>
+
+    <!--手机号-->
+    <view class="sec">
+      <text class="sec-left">手机号</text>
+      <input class="phone-input" type="number" placeholder="请输入手机号码" maxlength="11" bindinput="getMobile" />
+      <button class="get-identify-code" disabled="{{getCodeBtnProperty.disabled}}" catchtap="getCodeRequest">{{getCodeBtnProperty.title}}</button>
+    </view>
+
+    <!--验证码-->
+    <view class="sec">
+      <text class="sec-left">验证码</text>
+      <input class="sec-right" type="number" placeholder="输入验证码" maxlength="4" bindinput="codeValidate" />
+    </view>
+
+     <!--姓名-->
+    <view class="sec">
+      <text class="sec-left">姓名</text>
+      <input class="sec-right" type="text" placeholder="请输入真实姓名" maxlength="10" bindinput="getRealName" />
+    </view>
+    
+    <!--复选框-->
+    <checkbox-group class="checkbox-group mt-80">
+      <label class="checkbox" bindtap="checkboxChange">
+        <checkbox value="checked" checked="{{checkboxChecked}}" color="#1495F0" /> 我已阅读并同意"学习DNA"
+      </label>
+      <text class="user-agreement" bindtap="toUserAgreement">用户协议</text>
+    </checkbox-group>
+
+    <button class="btn-login mt-40" disabled="{{registerBtnProperty.disabled}}" loading="{{registerBtnProperty.loading}}" catchtap="registerRequest">注册</button>
+  </view>
+</view>

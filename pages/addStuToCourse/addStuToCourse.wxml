@@ -1,0 +1,41 @@
+<view class="container">
+  <!--顶部搜索信息-->
+  <view class="pf-top">
+    <view class="add-container">
+      <!--搜索框-->
+      <view class="search-container">
+        <icon class="search-icon" type="search" size="18" />
+        <input class="search" type="text" placeholder="请输入学生姓名或手机号" bindinput="getCourseKey" />
+      </view>
+      <!--搜索按钮-->
+      <text class="search-btn" catchtap="searchStudent">搜索</text>
+    </view>
+    <!--水平线-->
+    <view class="horizontal"></view>
+  </view>
+  <!--有结果-->
+  <view class="search-result mt-100" wx:if="{{!noRelativeStudent}}">
+    <view class="sec mt-20" wx:for="{{studentList}}" wx:key="{{index}}">
+      <view class="sec-left">
+        <image class="stu-img" mode="aspectFill" src="{{item.head}}"></image>
+        <view class="stu-detail">
+          <text class="font-28">{{item.mobile}}</text>
+          <text class="font-28">{{item.real_name}}</text>
+          <view class="sec-left">
+            <text class="font-26 c-888">{{item.school}}</text>
+            <text class="font-26 c-888 ml-20">{{item.grade}}</text>
+          </view>
+        </view>
+      </view>
+      <button class="invite-stu" type="primary" disabled='{{item.join_status==0?true:false}}' data-student-id="{{item.user_id}}" catchtap="addStudentToCourse">{{item.join_status==0?'已加入':'邀请加入'}}</button>
+    </view>
+    <!--判断是加载还是无更多信息-->
+    <view class="load-more" hidden="{{!loadingMore}}">努力加载中...</view>
+    <view class="no-more" hidden="{{!noMore}}">无更多学生信息</view>
+  </view>
+  <!--无结果-->
+  <view class="no-select-dna" wx:else>
+    <image class="no-network-img" src="/images/no-relative-info.png"></image>
+    <text class="no-relative-info">没有相关学生信息，他可能还没有加入我们学习DNA，点击顶部的...转发给他吧！</text>
+  </view>
+</view>

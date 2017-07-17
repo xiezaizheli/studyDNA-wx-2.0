@@ -1,0 +1,290 @@
+<!--无网络显示界面-->
+<view class="no-network" wx:if="{{!netWorkStatus}}">
+  <image class="no-network-img" mode="widthFix" src="/images/no-network.png"></image>
+  <text class="c-666 mt-20" catchtap="getNetworkType">请检查网络后，点此刷新</text>
+</view>
+<!--有网络显示界面-->
+<view class="container {{pageOverflow?'overflow-hidden':''}}" wx:else>
+  <!--空白页面-->
+  <view class="loading-page" wx:if="{{loadingPage}}"></view>
+  <!--数据页面-->
+  <view class="has-cont" wx:else>
+    <!--学生端-->
+    <view class="stu-container width-100" wx:if="{{userType==0?true:false}}">
+      <!--无dna-->
+      <view class="no-dna" wx:if="{{!hasDna}}">
+        <image class="logo-img" mode="widthFix" src="/images/logo-notxt.png"></image>
+        <text class="font">欢迎使用学习DNA，你还没有发布DNA，赶紧去新增喔～～</text>
+        <button class="btn-full width-516 bg-warning c-333 mt-100" catchtap="toNewDna">新增DNA</button>
+      </view>
+      <!--有dna-->
+      <view class="has-dna" wx:else>
+        <!--下拉框-->
+        <view class="dropdown-container">
+          <!--时间-->
+          <view class="dropdown-sec width-33" catchtap="popTimeModal">
+            <text class="dropdown-cont {{timeModal?'dropdown-cont-active':''}}">{{time.currentName}}</text>
+            <image class="triangle-img {{timeModal?'triangle-img-active':''}}" src="/images/{{timeModal?'triangle-down-active':'triangle-down'}}.png"></image>
+          </view>
+          <!--筛选-->
+          <view class="dropdown-sec width-33" catchtap="popFilterModal">
+            <text class="dropdown-cont {{filterModal?'dropdown-cont-active':''}}">筛选</text>
+            <image class="triangle-img {{filterModal?'triangle-img-active':''}}" src="/images/{{filterModal?'triangle-down-active':'triangle-down'}}.png"></image>
+          </view>
+          <!--新增-->
+          <view class="dropdown-sec width-33 last-sec" catchtap="toNewDna">
+            <text class="dropdown-cont">新增</text>
+            <image class="new-img" mode="widthFix" src="/images/new.png"></image>
+          </view>
+        </view>
+        <!--模态框-->
+        <view class="modal" hidden="{{!backgroundModal}}" catchtap="cancelModal"></view>
+        <!--时间模态框-->
+        <view class="fixed-height-modal" hidden="{{!timeModal}}">
+          <view class="fixed-sec {{time.index==index?'fixed-sec-active':''}}" wx:for="{{time.array}}" wx:key="{{index}}" data-index="{{index}}" data-name="{{item.name}}" catchtap="getStuTime">
+            <text class="c-666 font-28">{{item.name}}</text>
+            <image class="right-img" src="/images/right.png"></image>
+          </view>
+        </view>
+        <!--筛选模态框-->
+        <view class="choose-box" hidden="{{!filterModal}}">
+          <!--筛选-->
+          <scroll-view class="fixed-height-modal height-600" scroll-with-animation="{{true}}" scroll-y="{{true}}" enable-back-to-top="{{true}}">
+            <!--科目-->
+            <view class="choose-sec">
+              <view class="choose-title" catchtap="toggleSubjectMore">
+                <text class="font-26">课程科目（可多选）</text>
+                <image class="arrow-img" src="/images/{{moreSubject?'arrow-up':'arrow-bottom'}}.png"></image>
+              </view>
+              <view class="choose-cont {{moreSubject?'show-more':''}}">
+                <text class="choose-cont-part {{item.active?'choose-cont-part-active':''}}" wx:for="{{courseSubjects.array}}" wx:key="{{index}}" data-index="{{index}}" bindtap="getChooseSubject">{{item.name}}</text>
+              </view>
+            </view>
+            <!--dna类别-->
+            <view class="choose-sec">
+              <view class="choose-title" catchtap="toggleDnaTypesMore">
+                <text class="font-26">DNA类别（可多选）</text>
+                <image class="arrow-img" src="/images/{{moreDnaTypes?'arrow-up':'arrow-bottom'}}.png"></image>
+              </view>
+              <view class="choose-cont {{moreDnaTypes?'show-more':''}}">
+                <text class="choose-cont-part {{item.active?'choose-cont-part-active':''}}" wx:for="{{dnaTypes.array}}" wx:key="{{index}}" data-index="{{index}}" catchtap="getChooseDnaTypes">{{item.name}}</text>
+              </view>
+            </view>
+            <!--时间-->
+            <view class="choose-sec time-choose">
+              <view class="choose-title">
+                <text class="font-26">DNA发布时间（单选）</text>
+              </view>
+              <view class="choose-cont">
+                <text class="choose-cont-part {{item.active?'choose-cont-part-active':''}}" wx:for="{{time.array}}" wx:key="{{index}}" data-index="{{index}}" bindtap="getChooseTime">{{item.name}}</text>
+              </view>
+            </view>
+          </scroll-view>
+          <!--按钮组-->
+          <view class="choose-btn-group">
+            <button class="choose-btn" type="default" hover-class="empty-dna-btn" plain="{{true}}" catchtap="emptyFilterDna">清空</button>
+            <button class="choose-btn ml-20" type="primary" catchtap="filterDna">确定</button>
+          </view>
+        </view>
+        <!--dna列表信息-->
+        <view class="width-100 mt-100">
+          <view class="dna-sec mt-20" wx:for="{{dnaList}}" wx:key="{{index}}">
+            <!--课程相关-->
+            <view class="dnalist-course">
+              <text>{{item.course_name}}</text>
+              <text class="c-info">{{item.dna_type_name}}</text>
+            </view>
+            <!--老师端用户-->
+            <view class="dnalist-user">
+              <image class="user-img" mode="aspectFill" src="{{stuInfo.head}}"></image>
+              <view class="user-detail">
+                <view class="user-info">
+                  <view>
+                    <text class="c-333">{{stuInfo.realName}}</text>
+                    <text class="pl-10 c-888">{{stuInfo.school}}</text>
+                    <text class="pl-10 c-888">{{stuInfo.grade}}</text>
+                  </view>
+                  <text class="c-888 font-26">{{item.add_time}}</text>
+                </view>
+                <text class="dna-name font-weight">{{item.dna_name}}</text>
+              </view>
+            </view>
+            <!--图片-->
+            <view class="dnalist-img">
+              <block wx:for="{{item.images}}" wx:key="{{index}}">
+                <image class="dna-img" mode="aspectFill" src="{{item.file_path}}" data-src="{{item.file_path}}" data-dna-id="{{item.dna_id}}"  catchtap="previewImg"></image>
+              </block>
+            </view>
+            <!--icon状态-->
+            <view class="dnalist-icon">
+              <view class="dnalist-icon-sec">
+                <view class="voice-icon" hidden="{{item.voices.length==0?true:false}}" data-index="{{index}}" catchtap="toggleVoice">
+                  <image class="voice-img" mode="widthFix" src="/images/{{item.isPlaying?'voice-active':'voice'}}.png"></image>
+                  <text>语音</text>
+                </view>
+                <view class="voice-icon" hidden="{{item.comment_num!=0?true:false}}">
+                  <image class="voice-img" mode="widthFix" src="/images/eyes.png"></image>
+                  <text>待批阅</text>
+                </view>
+                <view class="voice-icon" hidden="{{item.comment_num==0?true:false}}" data-dna-id="{{item.dna_id}}" catchtap="getDnaCommentList">
+                  <image class="voice-img" mode="widthFix" src="/images/eyes-active.png"></image>
+                  <text class="c-info">查看批阅</text>
+                </view>
+              </view>
+              <view class="dnalist-icon-sec">
+                <button class="edit-icon" data-dna-id="{{item.dna_id}}" data-course-id="{{item.course_id}}" data-dna-type-id="{{item.dna_type_id}}" data-dna-name="{{item.dna_name}}" data-images="{{item.images}}" data-voices="{{item.voices}}" catchtap="toEditDna">编辑</button>
+                <button class="edit-icon delete-icon" disabled="{{delBtnDisabed}}" data-dna-id="{{item.dna_id}}" data-title="{{item.dna_name}}" catchtap="deleteDna">删除</button>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!--判断是否还有DNA数据-->
+        <view class="load-more" hidden="{{!loadingMore}}">努力加载中...</view>
+        <view class="no-more" hidden="{{!noMore}}" catchtap="toNewDna">无更多DNA数据，请及时<text class="c-warning font-26">新增DNA</text>
+        </view>
+      </view>
+    </view>
+    <!--老师端-->
+    <view class="tea-container width-100" wx:else>
+      <!--无dna-->
+      <view class="no-dna" wx:if="{{!hasDna}}">
+        <image class="logo-img" mode="widthFix" src="/images/logo-notxt.png"></image>
+        <text class="font">欢迎使用学习DNA，还没有相关学生DNA信息，先去创建课程并添加学生到课程中喔～～</text>
+        <button class="btn-full width-516 bg-warning c-333 mt-100" catchtap="toManageCourse">查看我的课程</button>
+      </view>
+      <!--有dna-->
+      <view class="has-dna" wx:else>
+        <!--nav-->
+        <view class="tea-header">
+          <view class="nav-tabs">
+            <block wx:for="{{toggleProperty.navbar}}" wx:key="{{index}}">
+              <text class="tab {{toggleProperty.currentTab==index?'tab-active':''}}" style="color:{{item.color}}" data-index="{{index}}" bindtap="navToggle">{{item.name}}</text>
+            </block>
+          </view>
+          <view class="tea-filter" catchtap="popFilterModal">
+            <text class="dropdown-cont {{filterModal?'dropdown-cont-active':''}}">筛选</text>
+            <image class="triangle-img {{filterModal?'triangle-img-active':''}}" src="/images/{{filterModal?'triangle-down-active':'triangle-down'}}.png"></image>
+          </view>
+        </view>
+        <!--模态框-->
+        <view class="modal" hidden="{{!backgroundModal}}" catchtap="cancelModal"></view>
+        <!--筛选模态框-->
+        <view class="choose-box"  hidden="{{!filterModal}}">
+          <!--筛选-->
+          <scroll-view class="fixed-height-modal height-600" scroll-y="true" scroll-with-animation="{{true}}" enable-back-to-top="{{true}}">
+            <!--科目-->
+            <view class="choose-sec">
+              <view class="choose-title" catchtap="toggleSubjectMore">
+                <text>课程科目（可多选）</text>
+                <image class="arrow-img" src="/images/{{moreSubject?'arrow-up':'arrow-bottom'}}.png"></image>
+              </view>
+              <view class="choose-cont {{moreSubject?'show-more':''}}">
+                <text class="choose-cont-part {{item.active?'choose-cont-part-active':''}}" wx:for="{{courseSubjects.array}}" wx:key="{{index}}" data-index="{{index}}" bindtap="getChooseSubject">{{item.name}}</text>
+              </view>
+            </view>
+            <!--dna类别-->
+            <view class="choos-sec">
+              <view class="choose-title" catchtap="toggleDnaTypesMore">
+                <text>DNA类别（可多选）</text>
+                <image class="arrow-img" src="/images/{{moreDnaTypes?'arrow-up':'arrow-bottom'}}.png"></image>
+              </view>
+              <view class="choose-cont {{moreDnaTypes?'show-more':''}}">
+                <text class="choose-cont-part {{item.active?'choose-cont-part-active':''}}" wx:for="{{dnaTypes.array}}" wx:key="{{index}}" data-index="{{index}}" catchtap="getChooseDnaTypes">{{item.name}}</text>
+              </view>
+            </view>
+            <!--年级-->
+            <view class="choose-sec">
+              <view class="choose-title" catchtap="toggleGradeMore">
+                <text>课程年级（可多选）</text>
+                <image class="arrow-img" src="/images/{{moreGrade?'arrow-up':'arrow-bottom'}}.png"></image>
+              </view>
+              <view class="choose-cont {{moreGrade?'show-more':''}}">
+                <text class="choose-cont-part {{item.active?'choose-cont-part-active':''}}" wx:for="{{courseGrades.array}}" wx:key="{{index}}" data-index="{{index}}" bindtap="getChooseGrade">{{item.name}}</text>
+              </view>
+            </view>
+            <!--是否批阅-->
+            <view class="choose-sec">
+              <view class="choose-title">
+                <text>批阅状态（单选）</text>
+              </view>
+              <view class="choose-cont">
+                <text class="choose-cont-part {{item.active?'choose-cont-part-active':''}}" wx:for="{{toggleProperty.navbar}}" wx:key="{{index}}" data-index="{{index}}" bindtap="getCommentStatus">{{item.name}}</text>
+              </view>
+            </view>
+            <!--时间-->
+            <view class="choos-sec time-choose">
+              <view class="choose-title">
+                <text>DNA发布时间（单选）</text>
+              </view>
+              <view class="choose-cont">
+                <text class="choose-cont-part {{item.active?'choose-cont-part-active':''}}" wx:for="{{time.array}}" wx:key="{{index}}" data-index="{{index}}" bindtap="getChooseTime">{{item.name}}</text>
+              </view>
+            </view>
+          </scroll-view>
+          <!--按钮组-->
+          <view class="choose-btn-group">
+            <button class="choose-btn" type="default" hover-class="empty-dna-btn" plain="{{true}}" catchtap="emptyFilterDna">清空</button>
+            <button class="choose-btn ml-20" type="primary" bindtap="filterDna">确定</button>
+          </view>
+        </view>
+        <!--dna列表-->
+        <view class="width-100 mt-100">
+          <view class="dna-sec mt-20" wx:for="{{dnaList}}" wx:key="{{index}}">
+            <!--课程相关-->
+            <view class="dnalist-course">
+              <text>{{item.course_name}}</text>
+              <text class="c-info">{{item.dna_type_name}}</text>
+            </view>
+            <!--老师端用户-->
+            <view class="dnalist-user">
+              <image class="user-img" mode="aspectFill" src="{{item.head}}"></image>
+              <view class="user-detail">
+                <view class="user-info">
+                  <view>
+                    <text class="c-333">{{item.real_name}}</text>
+                    <text class="pl-10 c-888">{{item.school}}</text>
+                    <text class="pl-10 c-888">{{item.grade}}</text>
+                  </view>
+                  <text class="c-888 font-26">{{item.add_time}}</text>
+                </view>
+                <text class="dna-name font-weight">{{item.dna_name}}</text>
+              </view>
+            </view>
+            <!--图片-->
+            <view class="dnalist-img">
+              <block wx:for="{{item.images}}" wx:key="{{index}}">
+                <image class="dna-img" mode="aspectFill" src="{{item.file_path}}" data-src="{{item.file_path}}" data-dna-id="{{item.dna_id}}" catchtap="previewImg"></image>
+              </block>
+            </view>
+            <!--icon状态-->
+            <view class="dnalist-icon">
+              <view class="dnalist-icon-sec">
+                <view class="voice-icon" hidden="{{item.voices.length==0?true:false}}" data-index="{{index}}" catchtap="toggleVoice">
+                  <image class="voice-img" mode="widthFix" src="/images/{{item.isPlaying?'voice-active':'voice'}}.png"></image>
+                  <text>语音</text>
+                </view>
+              </view>
+              <view class="dnalist-icon-sec">
+                <button class="edit-icon" type="primary" hidden="{{item.comment_num==0?true:false}}" data-dna-id="{{item.dna_id}}" catchtap="getDnaCommentList">查看详情</button>
+                <button class="edit-icon" hidden="{{item.comment_num!=0?true:false}}" data-dna-id="{{item.dna_id}}" catchtap="toNewDnaComment">去批阅</button>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!--判断是否还有DNA数据-->
+        <view class="load-more" hidden="{{!loadingMore}}">努力加载中...</view>
+        <view class="no-more" hidden="{{!noMore}}">无更多相关DNA数据</view>
+      </view>
+    </view>
+    <!--没有相关dna信息-->
+    <view class="no-select-dna" hidden="{{!noSelectDna}}">
+      <image class="no-network-img" src="/images/no-relative-info.png"></image>
+      <text class="c-888 font-28 mt-20">没有相关DNA信息，请重新筛选</text>
+    </view>
+    <!--audio组件-->
+    <view class="audio" hidden="{{!voiceControl}}">
+      <image class="audio-img" mode="widthFix" src="/images/recording.png"></image>
+      <button class="audio-btn" catchtap="stopVoice">停止播放</button>
+    </view>
+  </view>
+</view>

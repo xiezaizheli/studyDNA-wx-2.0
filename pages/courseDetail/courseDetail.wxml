@@ -1,0 +1,54 @@
+<view class="loading-page" wx:if="{{loadingPage}}"></view>
+<view class="container" wx:else>
+  <!--课程信息-->
+  <view class="course-info">
+    <text class="font-34 c-333">课程：{{courseDetail.course_name}}</text>
+    <view class="grade-addtime">
+      <text class="c-888 font-28">{{courseDetail.grade_subject}}</text>
+      <text class="c-888 font-26">{{courseDetail.add_time}}</text>
+    </view>
+    <view class="course-desc">
+      <text class="c-888 font-28">课程简介：{{moreCourseDesc?courseDetail.course_desc:courseDetail.course_desc_thumb}}</text>
+      <text class="show-more" hidden="{{courseDetail.course_desc.length<51}}" catchtap="showMoreCourseDesc">{{moreCourseDesc?'收缩':'展开'}}</text>
+    </view>
+    <view class="add-num mt-20">
+      <text class="c-5fb41b font-28">已有{{courseDetail.stat_info.student_num}}人加入</text>
+      <view class="btn-group">
+        <button class="edit-icon" catchtap="toEditCourse" data-course-id="{{courseDetail.course_id}}" data-grade-id="{{courseDetail.grade_id}}" data-subject-id="{{courseDetail.subject_id}}" data-course-name="{{courseDetail.course_name}}" data-course-desc="{{courseDetail.course_desc}}">编辑</button>
+        <button class="edit-icon delete-icon" catchtap="deleteCourse">删除</button>
+      </view>
+    </view>
+  </view>
+  <!--添加学生-->
+  <view class="add-student">
+    <view class="course-member">
+      <view class="course-member-left">
+        <text class="border-left"></text>
+        <text class="stu-num">学员管理（{{courseDetail.stat_info.student_num}}人）</text>
+      </view>
+      <text class="edit" catchtap="editStudentNum">{{deleteImgShow?'删除':'管理'}}</text>
+    </view>
+    <view class="stu-detail {{moreStudent?'show-more':''}}">
+      <view class="stu-sec" wx:for="{{courseDetail.student_list}}" wx:key="{{index}}">
+        <image class="stu-img" mode="aspectFill" src="{{item.head}}"></image>
+        <text class="stu-name">{{item.real_name}}</text>
+        <image class="delete-img" mode="widthFix" src="/images/minus.png" hidden="{{!deleteImgShow}}" data-student-id="{{item.student_id}}" catchtap="removeStudentFromCourse"></image>
+      </view>
+      <image class="add-img" mode="widthFix" src="/images/add-warning.png" catchtap="toAddStuToCourse"></image>
+    </view>
+    <view class="width-100 ta-center" hidden="{{courseDetail.student_list.length<6}}" catchtap="showMoreStudent">
+      <image class="arrow-img" mode="widthFix" src="/images/{{moreStudent?'arrow-up':'arrow-bottom'}}.png"></image>
+    </view>
+  </view>
+  <!--课程二维码-->
+  <view class="qr-code-container">
+    <view class="qr-code">
+      <text class="border-left"></text>
+      <text class="code-font">课程二维码</text>
+    </view>
+    <!--生成课程二维码-->
+    <view class="img-box">
+      <image class="qr-code-img" mode="widthFix" src="{{imgPath}}" data-src="{{imgPath}}"></image>
+    </view>
+  </view>
+</view>

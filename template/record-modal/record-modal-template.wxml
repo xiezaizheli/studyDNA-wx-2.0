@@ -1,0 +1,31 @@
+<template name="recordModalTemplate">
+  <view class="modal-voice" wx:if="{{modalRecordShow}}">
+
+    <!--开始录音-->
+    <view class="record-status" wx:if="{{recording === false && playing === false && hasRecord === false}}">
+      <view class="record-info">
+        <text class="font-weight font-34">准备就绪</text>
+        <text class="mt-20">（限时60s）</text>
+      </view>
+      <button class="record-btn mt-50 bg-basic c-fff" hover-class="button-hover" bindtap="startRecord">开始录音</button>
+    </view>
+    
+    <!--结束录音-->
+    <view class="record-status" wx:if="{{recording === true}}">
+      <view class="record-info">
+        <image class="recording-img" mode="widthFix" src="/images/recording.png"></image>
+        <text class="font-weight font-30 mt-20">正在录音</text>
+        <text class="mt-10">{{recordTime}}/60S</text>
+      </view>
+      <button class="record-btn bg-warning" hover-class="button-hover" bindtap="stopRecord">结束录音</button>
+    </view>
+
+    <!--保存录音和取消录音-->
+    <view class="record-status" wx:if="{{hasRecord === true}}">
+      <text>录音保存成功</text>
+      <button class="record-btn bg-no cancel-btn" hover-class="button-hover" bindtap="clearRecord">删除录音</button>
+       <button class="record-btn bg-warning" hover-class="button-hover" bindtap="cancelModal">返回</button>
+    </view>
+    
+  </view>
+</template>

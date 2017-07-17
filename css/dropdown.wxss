@@ -1,0 +1,57 @@
+/*下拉框*/
+
+.dropdown-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.dropdown-sec {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  line-height: 80rpx;
+  box-sizing: border-box;
+  border-right: 1px dotted #eee;
+}
+
+.last-sec {
+  border-right: 0 !important;
+  position: relative;
+}
+
+.dropdown-cont {
+  font-weight: bold;
+  margin-right: 10rpx;
+  transition: all .2s linear;
+}
+
+.dropdown-cont-active {
+  font-weight: bold;
+  color: #1495f0;
+}
+
+.triangle-img {
+  width: 16rpx;
+  height: 16rpx;
+  transition: all 0.3s linear;
+}
+
+.triangle-img-active {
+  transform: rotate(180deg);
+}
+
+.arrow-img {
+  width: 20rpx;
+  height: 20rpx;
+}
+

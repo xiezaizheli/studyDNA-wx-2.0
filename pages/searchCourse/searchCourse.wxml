@@ -1,0 +1,61 @@
+<view class="container">
+  <!--顶部搜索信息-->
+  <view class="pf-top">
+    <view class="add-container">
+      <!--搜索框-->
+      <view class="search-container">
+        <icon class="search-icon" type="search" size="18" />
+        <input class="search" type="text" placeholder="请输入课程名字" bindinput="getCourseKey" />
+      </view>
+      <!--搜索按钮-->
+      <text class="search-btn" catchtap="searchCourseByStudent">搜索</text>
+    </view>
+    <!--水平线-->
+    <view class="horizontal"></view>
+  </view>
+  <!--有结果-->
+  <view class="width-100 mt-120" wx:if="{{!noRelativeCourse}}">
+    <!--课程列表-->
+    <view class="dna-sec mt-20" wx:for="{{courseList}}" wx:key="{{index}}">
+      <!--课程所在年级和学科、创建时间-->
+      <view class="dnalist-course">
+        <text class="font-26">{{item.subject_grade}}</text>
+        <text class="c-info font-26">{{item.add_time}}</text>
+      </view>
+      <!--课程信息-->
+      <view class="dnalist-user">
+        <image class="user-img" mode="aspectFill" src="{{item.head}}"></image>
+        <view class="user-detail">
+          <view class="user-info">
+            <view class="user-info-left">
+              <text class="c-333">{{item.real_name}}</text>
+              <text class="pl-10 c-888">{{item.school}}</text>
+              <text class="pl-10 c-888">{{item.grade}}</text>
+            </view>
+          </view>
+          <text class="dna-name font-weight">{{item.course_name}}</text>
+        </view>
+      </view>
+      <!--课程详细介绍-->
+      <view class="course-detail">
+        <text class="c-888">{{moreCourseDesc?item.course_desc:item.course_desc_thumb}}</text>
+        <text class="show-more" hidden="{{item.course_desc.length<50}}" catchtap="showMoreCourseDesc">{{moreCourseDesc?'收缩':'展开'}}</text>
+      </view>
+      <!--加入课程-->
+      <view class="dnalist-icon">
+        <text class="c-888 font-26">已有{{item.student_num}}人学习</text>
+        <view class="dnalist-icon-sec">
+          <button class="edit-icon" type="primary" data-course-id="{{item.course_id}}" catchtap="requestAddCourse" disabled="{{item.join_info!=-1?true:false}}">{{item.join_info==0?'已加入':item.join_info==1?'正在申请':'申请加入'}}</button>
+        </view>
+      </view>
+    </view>
+    <!--判断是加载还是无更多信息-->
+    <view class="load-more" hidden="{{!loadingMore}}">努力加载中...</view>
+    <view class="no-more" hidden="{{!noMore}}">无更多课程信息</view>
+  </view>
+  <!--无结果-->
+  <view class="no-select-dna" wx:else>
+    <image class="no-network-img" src="/images/no-relative-info.png"></image>
+    <text class="no-relative-info">没有相关课程的信息，可以直接扫描老师提供的课程二维码喔~</text>
+  </view>
+</view>

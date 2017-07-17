@@ -1,0 +1,45 @@
+<import src="../../template/record-play/record-play-template.wxml" />
+<import src="../../template/record-modal/record-modal-template.wxml" />
+
+<view class="container {{modalProperty.pageOverflow?'overflow-hidden':''}}">
+  <!--批改概要-->
+  <view class="sec">
+    <text class="font">批改概要：</text>
+    <input class="comment-brief" type="text" placeholder="最长不能超过40个汉字" maxlength="40" bindinput="getCommentBrief" />
+  </view>
+
+  <!--批改详情-->
+  <view class="sec-column mt-40">
+    <text class="font">批改详情：</text>
+    <text class="comment-detail mt-20" bindtap="showCommentDetailModal">{{addDnaCommentParams.comment_detail}}</text>
+  </view>
+
+  <!--上传图片-->
+  <view class="sec-column mt-40">
+    <view class="sec">
+      <text class="font">上传图片：</text>
+      <text class="font-24 c-888">最多一次性选择6张</text>
+    </view>
+    <view class="img-list">
+      <block wx:for="{{imagesStorage}}" wx:key="{{index}}">
+        <image class="dna-img" mode="aspectFill" src="{{item}}" data-src="{{item}}" data-index="{{index}}" bindtap="previewDeleteImg" bindtouchstart="touchstart" bindtouchend="touchend"></image>
+      </block>
+      <image class="dna-img" hidden="{{imagesStorage.length>=6}}" src="/images/add-big.png" bindtap="addImg"></image>
+    </view>
+  </view>
+
+  <!--附加语音-->
+  <template is="recordPlayTemplate" data="{{...audioproperty}}" />
+
+  <button class="btn-full-big pf-bottom" disabled="{{newDnaBtnProperty.disabled}}" loading="{{newDnaBtnProperty.loading}}" bindtap="launchRequest">确定</button>
+</view>
+<!--模态框-->
+<view class="modal" hidden="{{!modalProperty.pageModal}}" bindtap="cancelModal"></view>
+<!--批改详情模态框-->
+<view class="modal-textarea" wx:if="{{modalProperty.commentDetailModal}}">
+  <text class="font-weight">请输入批改详情：</text>
+  <textarea class="textarea" maxlength="-1" fixed="{{true}}" value="{{addDnaCommentParams.comment_detail}}" bindinput="getCommentDetail" />
+  <button class="textarea-btn" hover-class="button-hover" bindtap="cancelModal">返回</button>
+</view>
+<!--模态框-->
+<template is="recordModalTemplate" data="{{...audioproperty}}" />

@@ -1,0 +1,44 @@
+@import "../../css/list.wxss";
+
+.dna-sec {
+  width: 100%;
+  border-bottom: 1px solid #e8e8e8;
+  box-sizing: border-box;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+}
+
+.comment-sec {
+  width: 100%;
+  border-bottom: 1px solid #e8e8e8;
+  box-sizing: border-box;
+  margin-bottom: 20rpx;
+}
+
+.bg-active {
+  background: #eff0dc !important;
+}
+
+.comment-brief {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.my-comment {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.comment-img {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+
+.show-more{
+  padding: 40rpx;
+}

@@ -1,0 +1,67 @@
+page {
+  height: 100%;
+  background: #f8f8f8;
+}
+
+/*学生端消息*/
+
+.notify-list {
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 20rpx;
+}
+
+.notify-sec {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+.user-img-left {
+  position: relative;
+}
+
+.user-img {
+  width: 120rpx;
+  height: 120rpx;
+}
+
+.has-notify {
+  position: absolute;
+  top: -10rpx;
+  right: -5rpx;
+  width: 35rpx;
+  height: 35rpx;
+  z-index: 10;
+}
+
+.notify-detail {
+  margin-top: -2rpx;
+  width: 100%;
+  padding-right: 40rpx;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.notify-info {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  line-height: 50rpx;
+  justify-content: space-between;
+}
+
+.notify-cont {
+  padding-top: 10rpx;
+  color: #888;
+  font-size: 28rpx;
+  line-height: 40rpx;
+}

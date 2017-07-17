@@ -1,0 +1,44 @@
+<!--无网络-->
+<view class="no-network" wx:if="{{!netWorkStatus}}">
+  <image class="no-network-img" mode="widthFix" src="/images/no-network.png"></image>
+  <text class="c-888 mt-20" catchtap="getNetworkType">请检查网络后，点此刷新</text>
+</view>
+<!--有网络-->
+<view class="container" wx:else>
+  <!--空白页-->
+  <view class="loading-page" wx:if="{{loadingPage}}"></view>
+  <view class="width-100" wx:else>
+    <!--学生端-->
+    <view class="stu-message" wx:if="{{userType==0?true:false}}">
+      <!--无消息-->
+      <view class="no-select-dna" wx:if="{{!hasNotify}}">
+        <image class="no-network-img" src="/images/no-relative-info.png"></image>
+        <text class="c-888 font-28 mt-20">暂无消息，快去新增DNA吧！</text>
+      </view>
+      <!--有消息-->
+      <view class="notify-list" wx:else>
+        <view class="notify-sec {{item.is_read?'notify-read':''}}" wx:for="{{notifyList}}" wx:key="{{index}}" data-dna-id="{{item.notify_linkdata.dna_id}}" data-notify-id="{{item.notify_id}}" data-index="{{index}}" bindtap="updateReadStatus" bindtouchstart="touchstart"
+          bindtouchend="touchend">
+          <!--左边头像-->
+          <view class="user-img-left">
+            <image class="user-img" mode="aspectFill" src="{{item.notify_image}}"></image>
+            <image hidden="{{item.is_read!=0?true:false}}" class="has-notify" mode="widthFix" src="/images/has-notify.png"></image>
+          </view>
+          <!--右边消息信息-->
+          <view class="notify-detail">
+            <view class="notify-info">
+              <text class="font-28 c-333 font-weight">批阅消息通知</text>
+              <text class="font-26 c-info">{{item.add_time}}</text>
+            </view>
+            <text class="notify-cont">{{item.notify_content}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--老师端-->
+  <view class="no-select-dna" wx:if="{{userType==1?true:false}}">
+    <image class="no-network-img" src="/images/no-relative-info.png"></image>
+    <text class="c-888 font-28 mt-20">暂未开通消息通知，先去批阅DNA吧！</text>
+  </view>
+</view>

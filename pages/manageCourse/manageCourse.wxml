@@ -1,0 +1,211 @@
+<!--无网络-->
+<view class="no-network" wx:if="{{!netWorkStatus}}">
+  <image class="no-network-img" mode="widthFix" src="/images/no-network.png"></image>
+  <text class="c-888 mt-20" catchtap="getNetworkType">请检查网络后，点此刷新</text>
+</view>
+<!--有网络-->
+<view class="container {{pageOverflow?'overflow-hidden':''}}" wx:else>
+  <view class="loading-page" wx:if="{{loadingPage}}"></view>
+  <view class="width-100" wx:else>
+    <!--老师端-->
+    <view class="tea-container" wx:if="{{userType==1?true:false}}">
+      <!--无课程-->
+      <view class="no-course" wx:if="{{!hasCourse}}">
+        <image class="no-network-img" src="/images/no-relative-info.png"></image>
+        <text class="font">还没有添加任何课程，赶紧去添加课程！</text>
+        <button class="btn-full width-516 mt-60 bg-warning c-333" catchtap="toCreateCourse">创建课程</button>
+      </view>
+      <!--有课程-->
+      <view class="has-course" wx:else>
+        <!--下拉框-->
+        <view class="dropdown-container">
+          <!--年级-->
+          <view class="dropdown-sec width-25" catchtap="popGradeModal">
+            <text class="dropdown-cont {{gradeModal?'dropdown-cont-active':''}}">{{courseGrades.currentName}}</text>
+            <image class="triangle-img {{gradeModal?'triangle-img-active':''}}" src="/images/{{gradeModal?'triangle-down-active':'triangle-down'}}.png"></image>
+          </view>
+          <!--学科-->
+          <view class="dropdown-sec width-25" catchtap="popSubjectModal">
+            <text class="dropdown-cont {{subjectModal?'dropdown-cont-active':''}}">{{courseSubjects.currentName}}</text>
+            <image class="triangle-img {{subjectModal?'triangle-img-active':''}}" src="/images/{{subjectModal?'triangle-down-active':'triangle-down'}}.png"></image>
+          </view>
+          <!--申请管理-->
+          <view class="dropdown-sec width-25" catchtap="toTeaManageCourseByStudentRequest">
+            <text class="dropdown-cont">学生管理</text>
+          </view>
+          <!--创建课程-->
+          <view class="dropdown-sec width-25 last-sec" catchtap="toCreateCourse">
+            <text class="dropdown-cont">创建课程</text>
+          </view>
+        </view>
+        <!--模态框-->
+        <view class="modal" hidden="{{!backgroundModal}}" catchtap="cancelModal"></view>
+        <!--年级模态框-->
+        <scroll-view class="fixed-height-modal height-600" scroll-with-animation="{{true}}" scroll-y="{{true}}" enable-back-to-top="{{true}}" hidden="{{!gradeModal}}">
+          <view class="fixed-sec {{courseGrades.index==index?'fixed-sec-active':''}}" wx:for="{{courseGrades.array}}" wx:key="{{index}}" data-index="{{index}}" data-name="{{item.name}}" data-grade-id="{{item.id}}" catchtap="getTeaCourseGrade">
+            <text class="c-666 font-28">{{item.name}}</text>
+            <image class="right-img" src="/images/right.png"></image>
+          </view>
+        </scroll-view>
+        <!--学科模态框-->
+        <scroll-view class="fixed-height-modal height-600" scroll-with-animation="{{true}}" scroll-y="{{true}}" enable-back-to-top="{{true}}" hidden="{{!subjectModal}}">
+          <view class="fixed-sec {{courseSubjects.index==index?'fixed-sec-active':''}}" wx:for="{{courseSubjects.array}}" wx:key="{{index}}" data-index="{{index}}" data-name="{{item.name}}" data-subject-id="{{item.id}}" catchtap="getTeaCourseSubject">
+            <text class="c-666 font-28">{{item.name}}</text>
+            <image class="right-img" src="/images/right.png"></image>
+          </view>
+        </scroll-view>
+        <!--课程列表-->
+        <view class="choose-list mt-100">
+          <view class="dna-sec mt-20" wx:for="{{courseList}}" wx:key="{{index}}" data-course-id="{{item.course_id}}" catchtap="toCourseDetail">
+            <!--课程所在年级和学科、创建时间-->
+            <view class="dnalist-course">
+              <text class="font-26">{{item.subject_grade}}</text>
+              <text class="c-info font-26">{{item.add_time}}</text>
+            </view>
+            <!--课程信息-->
+            <view class="dnalist-user">
+              <image class="user-img" mode="aspectFill" src="{{item.head}}"></image>
+              <view class="user-detail">
+                <view class="user-info">
+                  <view>
+                    <text class="c-333">{{item.real_name}}</text>
+                    <text class="c-888 pl-10">{{item.school}}</text>
+                    <text class="c-888 pl-10">{{item.grade}}</text>
+                  </view>
+                </view>
+                <text class="dna-name font-weight">{{item.course_name}}</text>
+              </view>
+            </view>
+            <!--课程详细介绍-->
+            <view class="course-detail">
+              <text class="c-888">{{item.course_desc}}</text>
+            </view>
+            <!--加入课程-->
+            <view class="dnalist-icon">
+              <text class="c-888 font-26">已有{{item.student_num}}人学习</text>
+              <view class="dnalist-icon-sec">
+                <button class="edit-icon">查看详情</button>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!--判断是否还有DNA数据-->
+        <view class="load-more" hidden="{{!loadingMore}}">努力加载中...</view>
+        <view class="no-more" hidden="{{!noMore}}" catchtap="toCreateCourse">无更多课程数据，请及时<text class="c-warning font-26">创建课程</text>
+        </view>
+      </view>
+    </view>
+    <!--学生端-->
+    <view class="stu-container" wx:if="{{userType==0?true:false}}">
+      <!--顶部搜索信息-->
+      <view class="stu-top-search">
+        <!--scan和search-->
+        <view class="scan-search">
+          <view class="search-container" bindtap="toSearchCourse">
+            <icon class="search-icon" type="search" size="18" />
+            <text class="search">请输入课程等关键词</text>
+          </view>
+          <text class="scan" catchtap="scanCode">扫码添加</text>
+          <view class="select" catchtap="popFilterModal">
+            <text>筛选</text>
+            <image class="triangle-img" src="/images/{{filterModal?'triangle-down-white-active':'triangle-down-white'}}.png"></image>
+          </view>
+        </view>
+      </view>
+      <!--无课程-->
+      <view class="stu-no-course" wx:if="{{!hasCourse}}">
+        <image class="no-network-img" src="/images/no-relative-info.png"></image>
+        <text class="c-888 font-28 mt-20">没有任何课程信息，赶紧去搜索或者扫码添加喔~</text>
+      </view>
+      <!--有课程-->
+      <view class="stu-has-course" wx:else>
+        <!--模态框-->
+        <view class="modal" hidden="{{!backgroundModal}}" catchtap="cancelModal"></view>
+        <!--筛选模态框-->
+        <view class="choose-box" hidden="{{!filterModal}}">
+          <!--筛选-->
+          <scroll-view class="fixed-height-modal filter-modal height-600" scroll-with-animation="{{true}}" scroll-y="{{true}}" enable-back-to-top="{{true}}">
+          <!--状态-->
+            <view class="choose-sec">
+              <view class="choose-title">
+                <text class="font-26">申请状态</text>
+              </view>
+              <view class="choose-cont">
+                <text class="choose-cont-part {{item.active?'choose-cont-part-active':''}}" wx:for="{{joinStatus.array}}" wx:key="{{index}}" data-index="{{index}}" bindtap="getChooseJoinStatus">{{item.name}}</text>
+              </view>
+            </view>
+            <!--年级-->
+            <view class="choose-sec">
+              <view class="choose-title" catchtap="toggleGradeMore">
+                <text class="font-26">课程年级</text>
+                <image class="arrow-img" src="/images/{{moreGrade?'arrow-up':'arrow-bottom'}}.png"></image>
+              </view>
+              <view class="choose-cont {{moreGrade?'show-more':''}}">
+                <text class="choose-cont-part {{item.active?'choose-cont-part-active':''}}" wx:for="{{courseGrades.array}}" wx:key="{{index}}" data-index="{{index}}" bindtap="getChooseGrade">{{item.name}}</text>
+              </view>
+            </view>
+            <!--科目-->
+            <view class="choose-sec time-choose">
+              <view class="choose-title" catchtap="toggleSubjectMore">
+                <text class="font-26">课程科目</text>
+                <image class="arrow-img" src="/images/{{moreSubject?'arrow-up':'arrow-bottom'}}.png"></image>
+              </view>
+              <view class="choose-cont {{moreSubject?'show-more':''}}">
+                <text class="choose-cont-part {{item.active?'choose-cont-part-active':''}}" wx:for="{{courseSubjects.array}}" wx:key="{{index}}" data-index="{{index}}" catchtap="getChooseSubject">{{item.name}}</text>
+              </view>
+            </view>
+          </scroll-view>
+          <!--按钮组-->
+          <view class="choose-btn-group filter-btn">
+            <button class="choose-btn" type="default" hover-class="empty-dna-btn" plain="{{true}}" catchtap="emptyFilterDna">清空</button>
+            <button class="choose-btn ml-20" type="primary" catchtap="filterDna">确定</button>
+          </view>
+        </view>
+        <!--课程列表-->
+        <view class="dna-sec mt-20" wx:for="{{courseList}}" wx:key="{{index}}">
+          <!--课程所在年级和学科、创建时间-->
+          <view class="dnalist-course">
+            <text class="font-26">{{item.subject_grade}}</text>
+            <text class="c-info font-26">{{item.add_time}}</text>
+          </view>
+          <!--课程信息-->
+          <view class="dnalist-user">
+            <image class="user-img" mode="aspectFill" src="{{item.head}}"></image>
+            <view class="user-detail">
+              <view class="user-info">
+                <view class="user-info-left">
+                  <text class="c-333">{{item.real_name}}</text>
+                  <text class="pl-10 c-888">{{item.school}}</text>
+                  <text class="pl-10 c-888">{{item.grade}}</text>
+                </view>
+              </view>
+              <text class="dna-name font-weight">{{item.course_name}}</text>
+            </view>
+          </view>
+          <!--课程详细介绍-->
+          <view class="course-detail">
+            <text class="c-888">{{moreCourseDesc?item.course_desc:item.course_desc_thumb}}</text>
+            <text class="show-more-cont" hidden="{{item.course_desc.length<50}}" catchtap="showMoreCourseDesc">{{moreCourseDesc?'收缩':'展开'}}</text>
+          </view>
+          <!--加入课程-->
+          <view class="dnalist-icon">
+            <text class="c-888 font-26">已有{{item.student_num}}人学习</text>
+            <view class="dnalist-icon-sec">
+              <button class="edit-icon" type="primary" data-course-id="{{item.course_id}}" wx:if="{{item.status==0?true:false}}">已加入</button>
+              <button class="edit-icon" data-course-id="{{item.course_id}}" wx:else>申请中</button>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!--判断是否还有DNA数据-->
+      <view class="load-more" hidden="{{!loadingMore}}">努力加载中...</view>
+      <view class="no-more" hidden="{{!noMore}}" catchtap="toSearchCourse">无更多课程数据，请及时<text class="c-warning font-26">添加课程</text>
+      </view>
+    </view>
+  </view>
+  <!--没有相关课程信息-->
+  <view class="no-select-dna" hidden="{{!noRelativeCourse}}">
+    <image class="no-network-img" src="/images/no-relative-info.png"></image>
+    <text class="c-888 font-28 mt-20">没有相关课程信息，请重新筛选</text>
+  </view>
+</view>

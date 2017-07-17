@@ -1,0 +1,48 @@
+.container {
+  padding: 0 60rpx 30rpx;
+}
+
+.container text {
+  font-size: 28rpx;
+  line-height: 50rpx;
+  color: #666;
+  text-align: justify;
+}
+
+/*标题*/
+
+.title {
+  width: 100%;
+  text-align: left;
+  font-size: 36rpx;
+  color: #1495f0;
+}
+
+.title-name {
+  width: 100%;
+  background: #eee;
+  text-align: center;
+  height: 60rpx;
+  line-height: 60rpx;
+  display: block;
+  font-size: 28rpx;
+}
+
+/*具体条款*/
+.font {
+  display: flex;
+  flex-direction: column;
+}
+
+.cont {
+  text-indent: 56rpx;
+  display: flex;
+  flex-direction: column;
+}
+.font text{
+  line-height: 50rpx;
+}
+.flex-fd{
+  display: flex;
+  flex-direction: column;
+}

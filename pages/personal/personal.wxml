@@ -1,0 +1,116 @@
+<!--根据网络状态判断显示界面-->
+<view class="no-network" wx:if="{{!netWorkStatus}}">
+  <image class="no-network-img" mode="widthFix" src="/images/no-network.png"></image>
+  <text class="c-666 mt-20" catchtap="getNetworkType">请检查网络后，点此刷新</text>
+</view>
+<!--主页面-->
+<view class="container" wx:else>
+  <view class="width-100">
+    <!--头像-->
+    <view class="sec head-sec-height" bindtap="changeHeadImg">
+      <text class="font">头像</text>
+      <view class="cont">
+        <image class="user-img" mode='aspectFill' src="{{userInfo.head}}"></image>
+        <image class="arrow-bottom-img" mode="widthFix" src="/images/arrow-right.png"></image>
+      </view>
+    </view>
+
+    <!--姓名-->
+    <view class="sec mt-40 bt-d9d9d9" bindtap="unableChangeRealName">
+      <text class="font">姓名</text>
+      <view class="cont">
+        <text class="c-888">{{userInfo.real_name}}</text>
+        <image class="arrow-bottom-img" mode="widthFix" src="/images/arrow-right.png"></image>
+      </view>
+    </view>
+
+    <!--昵称-->
+    <view class="sec" bindtap="setNickname">
+      <text class="font">昵称</text>
+      <view class="cont">
+        <text class="c-888">{{userInfo.nick_name!=''?userInfo.nick_name:'请输入'}}</text>
+        <image class="arrow-bottom-img" mode="widthFix" src="/images/arrow-right.png"></image>
+      </view>
+    </view>
+
+    <!--性别-->
+    <view class="sec">
+      <text class="font">性别</text>
+      <view class="cont">
+        <picker class="sex-picker" value="{{sexItems.index}}" range="{{sexItems.array}}" bindchange="pickerSexChange">
+          <text wx:if="{{editUserInfoParams.info.sex==2}}" class="c-888">点击选择</text>
+          <text wx:else class="c-888">{{sexItems.array[sexItems.index]}}</text>
+        </picker>
+        <image class="arrow-bottom-img" mode="widthFix" src="/images/arrow-right.png"></image>
+      </view>
+    </view>
+
+    <!--学校-->
+    <view class="sec" bindtap="setSchool">
+      <text class="font">学校</text>
+      <view class="cont">
+        <text class="c-888">{{userInfo.school!=''?userInfo.school:'请输入'}}</text>
+        <image class="arrow-bottom-img" mode="widthFix" src="/images/arrow-right.png"></image>
+      </view>
+    </view>
+
+    <!--班级-->
+    <view class="sec" bindtap="setGrade">
+      <text class="font">班级</text>
+      <view class="cont">
+        <text class="c-888">{{userInfo.grade!=''?userInfo.grade:'请输入'}}</text>
+        <image class="arrow-bottom-img" mode="widthFix" src="/images/arrow-right.png"></image>
+      </view>
+    </view>
+
+    <!--手机号-->
+    <view class="sec">
+      <text class="font">手机号</text>
+      <view class="cont">
+        <text class="c-888">{{userInfo.mobile}}</text>
+        <image class="arrow-bottom-img ml-40" mode="widthFix" src="/images/arrow-right.png"></image>
+      </view>
+    </view>
+
+    <!--退出账号-->
+    <view class="sec mt-40 bt-d9d9d9" bindtap="loginOut">
+      <text class="font">退出账号</text>
+      <view class="cont">
+        <image class="arrow-bottom-img" mode="widthFix" src="/images/arrow-right.png"></image>
+      </view>
+    </view>
+  </view>
+</view>
+<!--模态框-->
+<view class="modal" wx:if="{{modalProperty.modalShow}}" bindtap="cancelModal"></view>
+
+<!--模态框-->
+<view class="modal-content" wx:if="{{modalProperty.totalModal}}">
+  <!--昵称-->
+  <view class="nick-name-modal" hidden="{{!modalProperty.nickNameModal}}">
+    <text class="modal-title">修改用户昵称</text>
+    <input class="name-input" type="text" maxlength="6" value="{{userInfo.nick_name}}" placeholder="昵称最长为6个汉字" bindinput="changeNickName" />
+    <view class="btn-group">
+      <button class="cancel-btn" bindtap="cancelModal">取消</button>
+      <button class="cancel-btn bg-basic c-fff" catchtap="editUserInfo">确认</button>
+    </view>
+  </view>
+  <!--学校-->
+  <view class="school-modal" hidden="{{!modalProperty.schoolModal}}">
+    <text class="modal-title">修改所在学校</text>
+    <input class="name-input" type="text" maxlength="12" placeholder="请输入真实的学校信息" value="{{userInfo.school}}" bindinput="changeSchool" />
+    <view class="btn-group">
+      <button class="cancel-btn" bindtap="cancelModal">取消</button>
+      <button class="cancel-btn bg-basic c-fff" catchtap="editUserInfo">确认</button>
+    </view>
+  </view>
+  <!--班级-->
+  <view class="grade-modal" hidden="{{!modalProperty.gradeModal}}">
+    <text class="modal-title">修改所在班级</text>
+    <input class="name-input" type="text" maxlength="10" placeholder="请输入所在班级如：高一6班" value="{{userInfo.grade}}" bindinput="changeGrade" />
+    <view class="btn-group">
+      <button class="cancel-btn" bindtap="cancelModal">取消</button>
+      <button class="cancel-btn bg-basic c-fff" catchtap="editUserInfo">确认</button>
+    </view>
+  </view>
+</view>

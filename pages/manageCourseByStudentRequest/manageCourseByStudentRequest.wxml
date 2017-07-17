@@ -1,0 +1,32 @@
+<!--空白页面-->
+<view class="loading-page" wx:if="{{loadingPage}}"></view>
+
+<!--数据页面-->
+<view class="container" wx:else>
+  <!--无数据-->
+  <view class="no-select-dna" wx:if="{{applyList.length==0?true:false}}">
+    <image class="no-network-img" mode="widthFix" src="/images/no-relative-info.png"></image>
+    <text class="c-888 mt-20" catchtap="getNetworkType">无未处理学生申请加入课程通知！</text>
+  </view>
+  <!--有数据-->
+  <view class="width-100" wx:else>
+    <view class="sec" wx:for="{{applyList}}" wx:key="{{index}}">
+      <image class="stu-img" mode="aspectFill" src="{{item.user_base_info.head}}"></image>
+      <view class="sec-right">
+        <view class="stu-detail">
+          <view class="btn-group">
+            <text class="font-32">{{item.user_base_info.real_name}}</text>
+          </view>
+          <view class="btn-group">
+            <button class="refuse-btn" data-course-id="{{item.course_id}}" data-student-id="{{item.student_id}}" catchtap="refuseAddCourse">拒绝</button>
+            <button class="refuse-btn bg-basic c-fff ml-20" data-course-id="{{item.course_id}}" data-student-id="{{item.student_id}}" catchtap="addStudentToCourse">同意</button>
+          </view>
+        </view>
+        <view class="course-info mt-10">
+          <text class="font-26 c-888">{{item.add_time}}请求加入课程</text>
+          <text class="font-28 pl-10 font-weight">《{{item.course_info.course_name}}》</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

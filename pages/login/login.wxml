@@ -1,0 +1,24 @@
+<view class="container">
+  <!--logo-->
+  <image class="logo-img" mode="widthFix" src="/images/logo-notxt.png"></image>
+  <view class="main">
+    <!--手机号-->
+    <view class="sec">
+      <text class="sec-left">手机号</text>
+      <input class="phone-input" type="number" placeholder="请输入手机号码" maxlength="11" bindinput="getMobile" />
+      <button class="get-identify-code" disabled="{{getCodeBtnProperty.disabled}}" catchtap="getCodeRequest">{{getCodeBtnProperty.title}}</button>
+    </view>
+    <!--验证码-->
+    <view class="sec">
+      <text class="sec-left">验证码</text>
+      <input class="sec-right" type="number" placeholder="输入验证码" maxlength="4" bindinput="codeValidate" />
+    </view>
+    <!--登录按钮-->
+    <button class="btn-login mt-60" loading="{{loginBtnProperty.loading}}" disabled="{{loginBtnProperty.disabled}}" catchtap="loginRequest">登录</button>
+
+    <view class="wx-login">
+      <text class="c-888 font-24">------- 其他方式登录 -------</text>
+      <image class="wx-icon mt-40" mode="widthFix" src="/images/weixin.png" bindtap="wxLogin"></image>
+    </view>
+  </view>
+</view>

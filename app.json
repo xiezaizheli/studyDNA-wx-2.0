@@ -1,0 +1,63 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/requestPayment/requestPayment",
+    "pages/wxFail/wxFail",
+    "pages/wxRegister/wxRegister",
+    "pages/index/index",
+    "pages/manageCourse/manageCourse",
+    "pages/addStuToCourse/addStuToCourse",
+    "pages/getDnaCommentList/getDnaCommentList",
+    "pages/courseDetail/courseDetail",
+    "pages/searchCourse/searchCourse",
+    "pages/manageCourseByStudentRequest/manageCourseByStudentRequest",
+    "pages/editCourse/editCourse",
+    "pages/createCourse/createCourse",
+    "pages/message/message",
+    "pages/personal/personal",
+    "pages/newDnaComment/newDnaComment",
+    "pages/editDnaComment/editDnaComment",
+    "pages/newDna/newDna",
+    "pages/editDna/editDna",
+    "pages/mobileRegister/mobileRegister",
+    "pages/userAgreement/userAgreement",
+    "pages/share/share"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#1495f0",
+    "navigationBarTitleText": "温锐教育",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#888",
+    "selectedColor": "#188eee",
+    "backgroundColor": "#F9F9F9",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "DNA",
+        "iconPath": "/images/tb-DNA.png",
+        "selectedIconPath": "/images/tb-DNA-active.png"
+      },
+      {
+        "pagePath": "pages/manageCourse/manageCourse",
+        "text": "课程",
+        "iconPath": "/images/tb-addcourse.png",
+        "selectedIconPath": "/images/tb-addcourse-active.png"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "text": "消息",
+        "iconPath": "/images/tb-message.png",
+        "selectedIconPath": "/images/tb-message-active.png"
+      },
+      {
+        "pagePath": "pages/personal/personal",
+        "text": "我的",
+        "iconPath": "/images/tb-personal.png",
+        "selectedIconPath": "/images/tb-personal-active.png"
+      }
+    ]
+  }
+}

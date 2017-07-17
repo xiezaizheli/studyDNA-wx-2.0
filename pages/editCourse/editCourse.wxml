@@ -1,0 +1,36 @@
+<view class="container {{modalProperty.pageOverflow?'overflow-hidden':''}}">
+  <!--年级-->
+  <view class="sec">
+    <text class="font">一、选择学级</text>
+    <picker class="picker" value="{{index}}" range-key="{{'name'}}" range="{{courseGrades.array}}" bindchange="pickerCourseGradeChange">
+      <text>{{courseGrades.array[courseGrades.index].name}}</text>
+    </picker>
+  </view>
+  <!--学科-->
+  <view class="sec">
+    <text class="font">二、选择学科</text>
+    <picker class="picker" value="{{index}}" range-key="{{'name'}}" range="{{courseSubjects.array}}" bindchange="pickerCourseSubjectChange">
+      <text>{{courseSubjects.array[courseSubjects.index].name}}</text>
+    </picker>
+  </view>
+  <!--课程标题-->
+  <view class="sec">
+    <text class="font">三、课程标题</text>
+    <input class="course-name" type="text" value="{{changeCourseParams.course_name}}" placeholder="最长不能超过14个汉字" maxlength="14" bindinput="getCourseName" />
+  </view>
+  <!--课程简介-->
+  <view class="sec mt-60">
+    <text class="font">四、课程简介</text>
+    <text class="course-desc" bindtap="popCourseDescModal">{{changeCourseParams.course_desc}}</text>
+  </view>
+  <!--提交-->
+  <button class="btn-full mt-60" loading="{{editBtnProperty.loading}}" disabled="{{editBtnProperty.disabled}}" catchtap="changeCourse">提交</button>
+</view>
+<!--模态框-->
+<view class="modal" hidden="{{!modalProperty.pageModal}}" catchtap="cancelModal"></view>
+<!--课程简介模态框-->
+<view class="modal-textarea" wx:if="{{modalProperty.courseDescModal}}">
+  <text class="font-weight">请输入课程简介：</text>
+  <textarea class="textarea" maxlength="-1" fixed="{{true}}" value="{{changeCourseParams.course_desc}}" bindinput="getCourseDesc" />
+  <button class="textarea-btn" hover-class="button-hover" bindtap="cancelModal">确认</button>
+</view>

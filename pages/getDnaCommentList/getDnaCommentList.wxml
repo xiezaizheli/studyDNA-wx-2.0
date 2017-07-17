@@ -1,0 +1,89 @@
+<!--空白页面-->
+<view class="loadingPage" wx:if="{{loadingPage}}"></view>
+<view class="container" wx:else>
+  <!--dna信息-->
+  <view class="dna-sec">
+    <!--课程相关-->
+    <view class="dnalist-course">
+      <text>{{dnaInfo.course_name}}</text>
+      <text class="c-info">{{dnaInfo.dna_type_name}}</text>
+    </view>
+    <!--用户-->
+    <view class="dnalist-user">
+      <image class="user-img" mode="aspectFill" src="{{dnaInfo.student_info.head}}"></image>
+      <view class="user-detail">
+        <view class="user-info">
+          <view class="user-info-left">
+            <text class="c-333">{{dnaInfo.student_info.real_name}}</text>
+            <text class="pl-10 c-888">{{dnaInfo.student_info.school}}</text>
+            <text class="pl-10 c-888">{{dnaInfo.student_info.grade}}</text>
+          </view>
+          <text class="c-888 font-26">{{dnaInfo.add_time}}</text>
+        </view>
+        <text class="dna-name font-weight">{{dnaInfo.dna_name}}</text>
+      </view>
+    </view>
+    <!--图片-->
+    <view class="dnalist-img">
+      <block wx:for="{{dnaInfo.images}}" wx:key="{{index}}">
+        <image class="dna-img" mode="aspectFill" src="{{item.file_path}}" data-index="{{index}}" data-student-id="{{dnaInfo.student_id}}" data-src="{{item.file_path}}" catchtap="previewImg"></image>
+      </block>
+    </view>
+    <!--icon状态-->
+    <view class="dnalist-icon">
+      <view class="dnalist-icon-sec">
+        <view class="voice-icon" hidden="{{dnaInfo.voices.length==0?true:false}}" data-index="{{0}}" catchtap="toggleVoice">
+          <image class="voice-img" mode="widthFix" src="/images/{{voicePlayingControl[0].isPlaying?'voice-active':'voice'}}.png"></image>
+          <text>语音</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--批阅信息-->
+  <view class="comment-sec" wx:for="{{commentList}}" wx:key="{{index}}">
+    <!--老师姓名和批阅时间-->
+    <view class="dnalist-course">
+      <text>{{item.teacher.real_name}}</text>
+      <text class="c-info font-24">{{item.add_time}} 批阅</text>
+    </view>
+    <!--批阅文本信息-->
+    <view class="dnalist-user">
+      <image class="user-img" mode="aspectFill" src="{{item.teacher.head}}"></image>
+      <view class="user-detail">
+        <view class="comment-brief">
+          <text class="font-weight font-30">{{item.comment_brief}}</text>
+        </view>
+        <view class="comment-detail mt-20">
+          <text class="dna-name font-28">{{moreCommentDetail?item.comment_detail:item.comment_detail_thumb}}</text>
+          <text class="show-more c-basic" hidden="{{item.comment_detail.length<30}}" catchtap="showMoreCommentDetail">{{moreCommentInfo}}</text>
+        </view>
+      </view>
+    </view>
+    <!--批阅图片信息-->
+    <view class="dnalist-img">
+      <block wx:for="{{item.images}}" wx:key="{{index}}">
+        <image class="dna-img" mode="aspectFill" src="{{item.file_path}}" data-index="{{index}}" data-src="{{item.file_path}}" data-dna-comment-id="{{item.dna_comment_id}}" catchtap="previewImg"></image>
+      </block>
+    </view>
+    <!--批阅语音信息以及修改和删除按钮等-->
+    <view class="dnalist-icon">
+      <view class="dnalist-icon-sec">
+        <view class="voice-icon" hidden="{{item.voices.length==0?true:false}}" data-index="{{index+1}}" catchtap="toggleVoice">
+          <image class="voice-img" mode="widthFix" src="/images/{{voicePlayingControl[index+1].isPlaying?'voice-active':'voice'}}.png"></image>
+          <text>语音</text>
+        </view>
+      </view>
+      <view class="dnalist-icon-sec" hidden="{{!item.isActive}}">
+        <button class="edit-icon" data-dna-comment-id="{{item.dna_comment_id}}" data-comment-brief="{{item.comment_brief}}" data-comment-detail="{{item.comment_detail}}" data-images="{{item.images}}" data-voices="{{item.voices}}" catchtap="toEditDnaComment">修改批阅</button>
+        <view class="edit-icon delete-icon" data-dna-comment-id="{{item.dna_comment_id}}" data-title="{{dnaInfo.dna_name}}" data-index="{{index}}" catchtap="delDnaComment">删除批阅</view>
+      </view>
+    </view>
+  </view>
+  <!--新增按钮-->
+  <button class="btn-full-big pf-bottom mt-100" hidden="{{!newBtnShow}}" catchtap="toNewDnaComment">新增批阅</button>
+  <!--audio组件-->
+  <view class="audio" hidden="{{!voiceControl}}">
+    <image class="audio-img" mode="widthFix" src="/images/recording.png"></image>
+    <button class="audio-btn" catchtap="stopVoice">停止播放</button>
+  </view>
+</view>

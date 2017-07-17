@@ -1,0 +1,57 @@
+<import src="../../template/record-play/record-play-template.wxml" />
+<import src="../../template/record-modal/record-modal-template.wxml" />
+
+<view class="loadingPage" wx:if="{{loadingPage}}"></view>
+<view class="container" wx:else>
+
+  <!--年级-->
+  <view class="select">
+    <text class="font">选择课程：</text>
+    <picker class="picker" value="{{index}}" range-key="{{'course_name'}}" range="{{courseNames.array}}" bindchange="pickerDnaNamesChange">
+      <text>{{courseNames.array[courseNames.index].course_name}}</text>
+    </picker>
+  </view>
+
+  <!--dna类型-->
+  <view class="select mt-40">
+    <text class="font">DNA类型：</text>
+    <picker class="picker" value="{{index}}" range-key="{{'name'}}" range="{{dnaTypes.array}}" bindchange="pickerdnaTypesChange">
+      <text>{{dnaTypes.array[dnaTypes.index].name}}</text>
+    </picker>
+  </view>
+
+  <!--dna标题-->
+  <view class="select-col mt-40">
+    <text class="font">DNA标题：</text>
+    <view class="textarea-view mt-20" catchtap="showTextarea">{{editDnaParams.dna_name}}</view>
+  </view>
+
+  <!--上传图片-->
+  <view class="select-col mt-40">
+    <view class="upload-txt">
+      <text class="font">上传图片：</text>
+      <text class="upload-info">最多一次性选择6张</text>
+    </view>
+    <view class="img-list">
+      <block wx:for="{{localImages.totalImages}}" wx:key="{{index}}">
+        <image class="dna-img" mode='aspectFill' src="{{item}}" data-src="{{item}}" data-index="{{index}}" catchtap="previewDeleteImg" bindtouchstart="touchstart" bindtouchend="touchend"></image>
+      </block>
+      <image hidden="{{localImages.totalImages.length>=6}}" class="dna-img" src="/images/add-big.png" catchtap="addImg"></image>
+    </view>
+  </view>
+
+  <!--附加语音-->
+  <template is="recordPlayTemplate" data="{{...audioproperty}}" />
+  <!--提交按钮-->
+  <button class="btn-full-big pf-bottom" disabled="{{editDnaBtnProperty.disabled}}" loading="{{editDnaBtnProperty.loading}}" bindtap="launchRequest">确定</button>
+</view>
+<!--模态框-->
+<view class="modal" hidden="{{!modalShow}}" bindtap="cancelModal"></view>
+<!--多行文本模态框-->
+<view class="modal-textarea" wx:if="{{modalTextareaShow}}">
+  <text class="font-weight">请输入DNA标题：</text>
+  <textarea class="textarea" value="{{editDnaParams.dna_name}}" maxlength="40" fixed="{{true}}" bindinput="getDnaTitle" />
+  <button class="textarea-btn" hover-class="button-hover" bindtap="cancelModal">返回</button>
+</view>
+<!--语音模态框-->
+<template is="recordModalTemplate" data="{{...audioproperty}}" />

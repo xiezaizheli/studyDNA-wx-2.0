@@ -1,0 +1,209 @@
+page {
+  background: #f8f8f8;
+}
+
+.container {
+  height: auto;
+  padding-bottom: 30rpx;
+}
+
+/*课程信息*/
+
+.course-info {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 30rpx 40rpx;
+  box-sizing: border-box;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+  line-height: 50rpx;
+}
+
+.grade-addtime {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 50rpx;
+  line-height: 80rpx;
+}
+
+.course-desc {
+  line-height: 50rpx;
+}
+
+.add-num {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-group {
+  display: flex;
+  align-items: center;
+}
+
+.edit-icon {
+  padding: 0 30rpx;
+  height: 50rpx;
+  box-sizing: border-box;
+  line-height: 50rpx;
+  font-size: 28rpx;
+  background: #ffbf06;
+  border-radius: 3px;
+  color: #000;
+}
+
+.delete-icon {
+  background: #888;
+  color: #fff;
+  margin-left: 10rpx;
+}
+
+.show-more {
+  padding: 40rpx;
+  color: #1495f0;
+  font-size: 30rpx;
+}
+
+/*添加学生*/
+
+.add-student {
+  margin-top: 30rpx;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.course-member {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #333;
+  box-sizing: border-box;
+  padding-left: 40rpx;
+  border-bottom: 1px solid #eee;
+}
+
+.course-member-left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 25rpx 0;
+  box-sizing: border-box;
+}
+
+.border-left {
+  display: inline-block;
+  width: 2px;
+  height: 100%;
+  background: #1495f0;
+  margin-right: 20rpx;
+}
+
+.stu-detail {
+  padding: 20rpx 0 20rpx 40rpx;
+  padding-right: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  height: 240rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.stu-sec {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-right: 30rpx;
+  margin-bottom: 20rpx;
+  position: relative;
+  width: 33.3%;
+  box-sizing: border-box;
+  height: 100rpx;
+}
+
+.stu-img {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.stu-name {
+  margin-left: 20rpx;
+  color: #666;
+  font-size: 28rpx;
+}
+
+.delete-img {
+  position: absolute;
+  width: 35rpx;
+  height: 35rpx;
+  top: 0;
+  left: -20rpx;
+}
+
+.add-img {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-bottom: 20rpx;
+}
+
+.arrow-img {
+  width: 30rpx;
+  height: 30rpx;
+  margin-top: 10rpx;
+}
+
+.show-more {
+  overflow: visible;
+  height: auto;
+}
+
+.edit {
+  padding: 0 40rpx;
+}
+
+/*课程二维码*/
+
+.qr-code-container {
+  width: 100%;
+  margin-top: 30rpx;
+  background: #fff;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  color: #333;
+  text-align: center;
+}
+
+.qr-code {
+  height: 80rpx;
+  padding: 25rpx 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.img-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 30rpx 0;
+}
+
+.qr-code-img {
+  width: 350rpx;
+  height: 350rpx;
+}

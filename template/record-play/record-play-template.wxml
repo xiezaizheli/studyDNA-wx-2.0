@@ -1,0 +1,22 @@
+<template name="recordPlayTemplate">
+  <view class="record">
+    <text class="font">附加语音：</text>
+
+    <!--条件1：没有语音信息-->
+    <block wx:if="{{tempFilePath==''}}">
+      <image class="record-img" mode="widthFix" src="/images/voice.png" bindtap="showRecordModal"></image>
+    </block>
+
+    <!--条件2：有语音信息且未播放-->
+    <block wx:if="{{tempFilePath!='' && playing===false}}">
+      <image class="record-img-small" mode="widthFix" src="/images/play.png" bindtap="playVoice"></image>
+      <image class="record-img-small" mode="widthFix" src="/images/trash.png" bindtap="clearRecord"></image>
+    </block>
+
+    <!--条件3：有语音信息已经在播放-->
+    <block wx:if="{{tempFilePath!='' && playing===true}}">
+      <image class="record-img-small" mode="widthFix" src="/images/pause.png" bindtap="stopVoice"></image>
+      <image class="record-img-small" mode="widthFix" src="/images/trash.png" bindtap="clearRecord"></image>
+    </block>
+  </view>
+</template>

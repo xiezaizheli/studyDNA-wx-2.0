@@ -1,0 +1,135 @@
+.dna-sec{
+  border-bottom: 1px solid #ddd;
+}
+/*课程相关*/
+
+.dnalist-course {
+  width: 100%;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  height: 50rpx;
+  line-height: 50rpx;
+  display: flex;
+  justify-content: space-between;
+  background: #efeff4;
+  font-size: 26rpx;
+}
+
+.dnalist-course text {
+  font-size: 26rpx;
+}
+
+/*用户相关*/
+
+.dnalist-user {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: flex-start;
+  padding: 0 40rpx;
+  margin-top: 40rpx;
+}
+
+.user-img {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.user-detail {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 20rpx;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  /*padding-top: 10rpx;*/
+  box-sizing: border-box;
+  line-height: 50rpx;
+}
+
+.user-info text {
+  font-size: 28rpx;
+}
+
+.dna-name {
+  padding-top: 6rpx;
+  font-size: 30rpx;
+  color: #333;
+  text-align: justify;
+}
+
+/*图片信息*/
+
+.dnalist-img {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 30rpx 40rpx 0 160rpx;
+}
+
+.dna-img {
+  width: 170rpx;
+  height: 170rpx;
+  margin-right: 10rpx;
+}
+
+/*icon状态*/
+
+.dnalist-icon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20rpx 40rpx 20rpx 160rpx;
+}
+
+.dnalist-icon text {
+  font-size: 28rpx;
+  color: #888;
+}
+
+.dnalist-icon-sec {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 50rpx;
+  line-height: 50rpx;
+}
+
+.voice-icon {
+  display: flex;
+  align-items: center;
+}
+
+.voice-img {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.dnalist-icon-sec text {
+  padding: 5rpx 20rpx 5rpx 2rpx;
+}
+
+.edit-icon {
+  padding: 0 30rpx;
+  height: 50rpx;
+  box-sizing: border-box;
+  line-height: 50rpx;
+  font-size: 28rpx;
+  background: #ffbf06;
+  border-radius: 3px;
+  color: #000;
+}
+
+.delete-icon {
+  background: #888;
+  color: #fff;
+  margin-left: 10rpx;
+}

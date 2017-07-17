@@ -1,0 +1,66 @@
+page {
+  position: relative;
+}
+
+.container {
+  width: 516rpx;
+  height: 100%;
+  padding-bottom: 30rpx;
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 375rpx;
+  background: #fff;
+  position: absolute;
+  top: 40rpx;
+  left: 187.5rpx;
+  z-index: 100;
+}
+
+.logo-img {
+  width: 220rpx;
+  height: 266rpx;
+}
+
+.share{
+  margin-top: 270rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.border-intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #1495f0;
+  height: 300rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.border-intro text {
+  font-size: 50rpx;
+  line-height: 100rpx;
+  font-weight: bold;
+  color: #666;
+}
+
+.study-dna {
+  margin-top: 80rpx;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #666;
+}
+
+.control-stu {
+  margin-top: 20rpx;
+  font-size: 32rpx;
+  color: #888;
+}

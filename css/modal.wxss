@@ -1,0 +1,133 @@
+.fixed-height-modal {
+  position: fixed;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  top: 80rpx;
+  left: 0;
+  z-index: 100;
+}
+
+.fixed-sec {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 720rpx;
+  border-bottom: 1px solid #eee;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 28rpx;
+  color: #666;
+  box-sizing: border-box;
+  margin-left: 30rpx;
+  padding-left: 10rpx;
+  padding-right: 30rpx;
+}
+
+.right-img {
+  display: none;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.fixed-sec-active text {
+  color: #1495f0 !important;
+}
+
+.fixed-sec-active .right-img {
+  display: block;
+}
+
+/*筛选模态框*/
+
+.choose-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  margin: 30rpx 0;
+  background: #fbfbfb;
+}
+
+.choose-title text {
+  font-size: 26rpx;
+}
+
+.choose-cont {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 30rpx;
+  height: 60rpx;
+  overflow: hidden;
+}
+
+.show-more {
+  overflow: visible;
+  height: auto;
+}
+
+.choose-cont-part {
+  display: inline-block;
+  height: 50rpx;
+  line-height: 50rpx;
+  padding: 0 30rpx;
+  font-size: 26rpx;
+  border: 1px solid #eee;
+  box-sizing: border-box;
+  margin-right: 20rpx;
+  margin-bottom: 10rpx;
+}
+
+.choose-cont-part-active {
+  border-color: #1495f0 !important;
+  color: #1495f0 !important;
+}
+
+.time-choose {
+  margin-bottom: 40rpx;
+}
+
+.choose-btn-group {
+  position: fixed;
+  top: 680rpx;
+  left: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100rpx;
+  background: #fbfbfb;
+  padding: 0 10rpx;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+.choose-btn {
+  width: 355rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 30rpx;
+}
+
+button[type="default"][plain] {
+  border: 1px solid #eee;
+}
+
+.empty-dna-btn {
+  background-color: #eee !important;
+  border: 0;
+}
+
+
+.height-600 {
+  height: 600rpx;
+}
